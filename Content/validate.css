@@ -1,0 +1,30 @@
+﻿
+input.error{
+    border: 1px solid #E6594E;
+}
+
+input.highlight{
+    border: 1px solid #7abd54;
+}
+
+label.error, label.tip {
+    float: left;
+    /*height: 32px;
+    line-height: 32px;*/
+    font-size: 14px;
+    text-align: left;
+    margin-left: 5px;
+    padding-left: 20px;
+    color: red;
+    background: url('img/error.png') no-repeat left center;
+}
+
+label.tip{
+    color: #aaa;
+    background: url('img/tip.png') no-repeat left center;
+}
+
+label.valid{
+    background: url('img/valid.png') no-repeat left center;
+    width: 32px;
+}

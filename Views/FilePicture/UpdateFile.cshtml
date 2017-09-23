@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "单个文件上传";
+}
+ 
+<div class="container">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            文件图片上传
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3">
+                @Html.Partial("_FilePicMenus")
+            </div><!-- /.col -->
+            <div class="col-md-9">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">单个文件上传(原生态)</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        @using (Html.BeginForm("FilePost", "FilePicture", new {keyid = ViewBag.KeyId }, FormMethod.Post, new {id = "fileuploadfrom", enctype = "multipart/form-data"}))
+                        {
+                       
+                            <input type="file" name="file1" id="file1" /> <span>大小限定：@(ViewBag.ImagemaxSize/1000/1000)M ,文件类型 @ViewBag.FileTypeis</span>
+                            <input id="submit" type="submit" class="btn btn-success btn-sm" value="保存" />
+                        }
+                    </div><!-- /.box-body -->
+                    <div class="box-footer no-padding">
+                   
+                       
+                    </div>
+                </div><!-- /. box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div> 
+
+ 
