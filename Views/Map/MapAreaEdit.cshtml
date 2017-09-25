@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "覆盖物编辑";
+}
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=hsU2Uy0fKOVEGnmQsqqRFsGV"></script>
+<div class="container">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3">
+                @Html.Partial("_MapMenus")
+            </div><!-- /.col -->
+            <div class="col-md-9">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">覆盖物编辑</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <div style="width:800px;height:500px;border:1px solid gray" id="allmap"></div>
+
+                    </div><!-- /.box-body -->
+                    <div class="box-footer no-padding">
+                        <button onclick="polyline.enableEditing();polygon.enableEditing();">开启线、面编辑功能</button>
+                        <button onclick="polyline.disableEditing();polygon.disableEditing();">关闭线、面编辑功能</button><br />
+                    </div>
+                </div><!-- /. box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div>
+
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 15);
+    map.enableScrollWheelZoom();
+
+    var polyline = new BMap.Polyline([
+        new BMap.Point(116.399, 39.910),
+        new BMap.Point(116.405, 39.920),
+        new BMap.Point(116.423493, 39.907445)
+    ], { strokeColor: "blue", strokeWeight: 2, strokeOpacity: 0.5 });   //创建折线
+    map.addOverlay(polyline);   //增加折线
+
+    var polygon = new BMap.Polygon([
+        new BMap.Point(116.387112, 39.920977),
+        new BMap.Point(116.385243, 39.913063),
+        new BMap.Point(116.394226, 39.917988),
+        new BMap.Point(116.401772, 39.921364),
+        new BMap.Point(116.41248, 39.927893)
+    ], { strokeColor: "blue", strokeWeight: 2, strokeOpacity: 0.5 });  //创建多边形
+    map.addOverlay(polygon);   //增加多边形
+</script>

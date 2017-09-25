@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "点击显示地名";
+}
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=hsU2Uy0fKOVEGnmQsqqRFsGV"></script>
+<div class="container">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3">
+                @Html.Partial("_MapMenus")
+            </div><!-- /.col -->
+            <div class="col-md-9">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">点击显示地名</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <div style="width:800px;height:500px;border:1px solid gray" id="allmap"></div>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer no-padding">
+
+                    </div>
+                </div><!-- /. box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div>
+
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    var point = new BMap.Point(116.331398, 39.897445);
+    map.centerAndZoom(point, 12);
+    var geoc = new BMap.Geocoder();
+
+    map.addEventListener("click", function (e) {
+        var pt = e.point;
+        geoc.getLocation(pt, function (rs) {
+            var addComp = rs.addressComponents;
+            alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+        });
+    });
+</script>

@@ -1,0 +1,337 @@
+﻿
+@{
+    ViewBag.Title = "表单验证";
+}
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.extend.js")"></script>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/content/validate.css")" />
+
+<link href="@Url.Content("~/content/jquery-ui.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-ui.min.js")"></script>
+
+<script src="@Url.Content("~/Scripts/datepicker.js")"></script>
+<script src="@Url.Content("~/Scripts/jQuery.Hz2Py-min.js")"></script>
+<script type="text/javascript">
+    // 身份证号码验证
+    $.validator.addMethod("isIdCardNo",
+        function (value, element) {
+            //var idCard = /^(\d{6})()?(\d{4})(\d{2})(\d{2})(\d{3})(\w)$/;
+            return this.optional(element) || isIdCardNo(value);
+        },
+        "请输入正确的身份证号码");
+
+    //身份证号码的验证规则
+    function isIdCardNo(num) {
+        //if (isNaN(num)) {alert("输入的不是数字！"); return false;}
+        var len = num.length, re;
+        if (len === 15) {
+            //身份证15位时，次序为省（3位）市（3位）年（2位）月（2位）日（2位）校验位（3位），皆为数字
+            re = new RegExp(/^(\d{6})(\d{2})(\d{2})(\d{2})(\d{3})$/);
+        } else if (len === 18) {
+            //身份证18位时，次序为省（3位）市（3位）年（4位）月（2位）日（2位）校验位（4位），校验位末尾可能为X
+            re = new RegExp(/^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/);
+        } else {
+            //alert("输入的数字位数不对。");
+            return false;
+        }
+        var a = num.match(re);
+        if (a != null) {
+            var d;
+            var b;
+            var birthDate = "";
+            if (len === 15) {
+                d = new Date("19" + a[2] + "/" + a[3] + "/" + a[4]);
+                b = parseInt(d.getYear()) === parseInt(a[2]) && (parseInt(d.getMonth()) + 1) === parseInt(a[3]) && parseInt(d.getDate()) === parseInt(a[4]);
+                birthDate = "19" + a[2] + "-" + a[3] + "-" + a[4];
+            } else {
+                d = new Date(a[2] + "/" + a[3] + "/" + a[4]);
+                b = parseInt(d.getFullYear()) === parseInt(a[2]) && (parseInt(d.getMonth()) + 1) === parseInt(a[3]) && parseInt(d.getDate()) === parseInt(a[4]);
+                birthDate = a[2] + "-" + a[3] + "-" + a[4];
+            }
+            if (!b) {
+                return false;
+            }
+            //判断日期是否合法
+            var maxdate = new Date();
+            var mindate = new Date();
+            maxdate.setYear(maxdate.getYear() - 10);
+            mindate.setYear(mindate.getYear() - 100);
+            var bdate = new Date(birthDate);
+            if (bdate > mindate) {
+                $("#BirthDate").val(birthDate);
+            } else {
+                return false;
+            }
+
+        }
+        if (!re.test(num)) {
+
+            return false;
+        }
+
+        return true;
+    }
+    $(function () {
+        $("#regForm")
+            .validate({
+                submitHandler: function (form) {
+                    $("#save_btn").val("注册中...");
+                    $("#save_btn").attr('disabled', true);
+                    //setTimeout(form.submit(), 1000*10);
+                    form.submit();   //提交表单
+                },
+
+
+                rules: {
+                    CardId: {
+                        required: true,
+                        isIdCardNo: true,
+                        //minlength: 2,
+                        remote: {
+                            type: "post",
+                            url: '@Url.Action("CheckUserCardId")',
+                            data: {
+                                cardId: function () {
+                                    return $.trim($("#CardId").val());
+                                }
+                            },
+                            dataFilter: function (d) {
+                                if (d === "1") {
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+                            }
+                        }
+
+                    },
+                    Phone: {
+                        required: true,
+                        isMobile: true
+
+                    },
+                    UserPsw: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 16
+                    },
+                    UserPsw1: {
+                        required: true,
+                        equalTo: "#UserPsw"
+                    },
+                    LastName:
+                    {
+                        required: true,
+                        isChinese: true,
+                        maxlength: 2
+                    },
+                    FirstName:
+                    {
+                        required: true,
+                        isChinese: true,
+                        maxlength: 3
+                    },
+                    PinLastName:
+                    {
+                        required: true
+                    },
+                    PinFirstName:
+                    {
+                        required: true
+                    },
+                    DeptName:
+                    {
+                        required: true
+                    },
+                    Sex:
+                    {
+                        required: true
+                    },
+                    BirthDate:
+                    {
+                        required: true
+                    },
+                    Education:
+                    {
+                        isIntNotZero: true
+                    },
+                    Nationality:
+                    {
+                        required: true
+                    },
+                    HouseholdRegister:
+                    {
+                        required: true
+                    },
+                    PoliticalIandscape:
+                    {
+                        isIntNotZero: true
+                    },
+                    AreaId:
+                    {
+                        required: true
+                    },
+                    LiveAddress:
+                    {
+                        required: true
+                    },
+                    ProvinceId:
+                    {
+                        required: true
+                    },
+                    CityId:
+                    {
+                        required: true
+                    },
+                    NativePlace:
+                    {
+                        required: true
+                    },
+                    eMail:
+                    {
+                        email: true
+                    }
+                },
+                messages: {
+                    CardId: {
+                        required: "证件号码不能为空",
+                        isIdCardNo: "身份证格式错误或者出生日期不符合要求",
+                        remote: "证件号码已经被注册"
+                    },
+                    Phone: {
+                        required: "手机号码不能为空",
+                        isMobile: "请输入正确的手机号码",
+                        remote: "手机号码已经被注册"
+                    },
+                    UserPsw: {
+                        required: "密码不能为空",
+                        minlength: "密码长度不能少于6个字符",
+                        maxlength: "密码长度不能超过16个字符"
+                    },
+                    UserPsw1: {
+                        required: "确认密码不能为空",
+                        equalTo: "确认密码和密码不一致"
+                    },
+
+                    LastName: {
+                        required: "请输入真实姓",
+                        isChinese: "请输入中文姓",
+                        maxlength: "最多两个字"
+                    },
+                    FirstName:
+                    {
+                        required: "请输入真实名",
+                        isChinese: "请输入中文名",
+                        maxlength: "最多三个字"
+                    },
+                    PinLastName: {
+                        required: "请输入真实姓的拼音"
+                    },
+                    PinFirstName:
+                    {
+                        required: "请输入真实名的拼音"
+                    },
+                    BirthDate:
+                    {
+                        required: "请输入出生日期"
+                    }
+                }
+            });
+
+        $("#BirthDate")
+            .datepicker({
+                changeMonth: true,
+                changeYear: true,
+                maxDate: "-10y",
+                minDate: "-100y"
+            });
+
+        $("#LastName")
+            .on("keyup keydown change blur",
+                function () {
+                    $("#PinLastName").val($(this).toPinyin());
+                });
+        $("#FirstName")
+            .on("keyup keydown change blur",
+                function () {
+                    $("#PinFirstName").val($(this).toPinyin());
+                });
+    });
+</script> 
+<style>
+    table tr td input {
+        float: left;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">表单验证</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form id="regForm">
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <tbody> 
+                            <tr>
+                                <td class="col-lg-3"><label for="LastName">真实姓</label></td>
+                                <td class="col-lg-9"><input id="LastName" name="LastName" type="text" /></td> 
+                            </tr>
+                            <tr>
+                                <td>  <label for="FirstName">真实名</label>
+                                    </td>
+                                <td><input id="FirstName" name="FirstName" type="text" /></td> 
+                            </tr>
+                            <tr>
+                                <td>   <label for="PinLastName">姓拼音</label>
+                                    </td>
+                                <td><input id="PinLastName" name="PinLastName" type="text" /></td> 
+                            </tr>
+                            <tr>
+                                <td> <label for="PinFirstName">名拼音</label>
+                                   </td>
+                                <td><input id="PinFirstName" name="PinFirstName" type="text" /></td> 
+                            </tr>
+                            <tr>
+                                <td><label for="CardId">身份证号码</label>
+                                    </td>
+                                <td><input id="CardId" name="CardId" type="text" /></td> 
+                            </tr>
+                            <tr>
+                                <td><label for="Phone">手机号码</label>
+                                  </td>
+                                <td><input id="Phone" name="Phone" type="text" /></td> 
+                            </tr>
+                            <tr>
+                                <td> <label for="UserPsw">密码</label>
+                                   </td>
+                                <td><input id="UserPsw" name="UserPsw" type="password" /></td> 
+                            </tr>
+                            <tr>
+                                <td><label for="UserPsw1">确认密码</label>
+                                  </td>
+                                <td><input id="UserPsw1" name="UserPsw1" type="password" /></td> 
+                            </tr>
+                            <tr>
+                                <td>  <label for="BirthDate">出生日期</label>
+                                  </td>
+                                <td><input type="text" id="BirthDate" name="BirthDate" readonly="readonly" /></td> 
+                            </tr>
+                             
+                            </tbody>
+                        </table> 
+                    </div><!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <input type="submit" class="btn btn-success" id="save_btn" value="注册" />
+                    </div>
+                </form>
+            </div><!-- /.box -->
+        </div>
+
+    </div>
+
+</div>
