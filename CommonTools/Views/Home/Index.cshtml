@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "Mvc中常用的东西";
+}
+<!--图片查看s-->
+<link href="@Url.Content("~/Content/viewer.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/viewer-jquery.min.js")"></script>
+<!--图片查看e-->
+<div class="container">
+    <section class="content-header">
+        <h1>
+            Timeline
+            <small>example</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">UI</a></li>
+            <li class="active">Timeline</li>
+        </ol>
+    </section>
+
+    <section class="content">
+
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- The time line -->
+                <ul class="timeline">
+                    <!-- timeline time label -->
+                    <li class="time-label">
+                        <span class="bg-red">
+                            10 Feb. 2014
+                        </span>
+                    </li>
+                    <!-- /.timeline-label -->
+                    <!-- timeline item -->
+                    <li>
+                        <i class="fa fa-envelope bg-blue"></i>
+                        <div class="timeline-item">
+                            <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                            <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                            <div class="timeline-body">
+                                Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                                weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                                jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                                quora plaxo ideeli hulu weebly balihoo...
+                            </div>
+                            <div class="timeline-footer">
+                                <a class="btn btn-primary btn-xs">Read more</a>
+                                <a class="btn btn-danger btn-xs">Delete</a>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- END timeline item -->
+                    <!-- timeline item -->
+                    <li>
+                        <i class="fa fa-user bg-aqua"></i>
+                        <div class="timeline-item">
+                            <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+                            <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
+                        </div>
+                    </li>
+                    <!-- END timeline item -->
+                    <!-- timeline item -->
+                    <li>
+                        <i class="fa fa-comments bg-yellow"></i>
+                        <div class="timeline-item">
+                            <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
+                            <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                            <div class="timeline-body">
+                                Take me to your leader!
+                                Switzerland is small and neutral!
+                                We are more like Germany, ambitious and misunderstood!
+                            </div>
+                            <div class="timeline-footer">
+                                <a class="btn btn-warning btn-flat btn-xs">View comment</a>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- END timeline item -->
+                    <!-- timeline time label -->
+                    <li class="time-label">
+                        <span class="bg-green">
+                            3 Jan. 2014
+                        </span>
+                    </li>
+                    <!-- /.timeline-label -->
+                    <!-- timeline item -->
+                    <li>
+                        <i class="fa fa-camera bg-purple"></i>
+                        <div class="timeline-item">
+                            <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+                            <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+                            <div class="timeline-body" id="images_1">
+                            
+                                <img src="~/Resources/Image/1.jpg" alt="1" class="margin"style="width: 150px; height: 100px;">
+                                <img src="~/Resources/Image/2.jpg" alt="2" class="margin"style="width: 150px; height: 100px;">
+                                <img src="~/Resources/Image/3.jpg" alt="3" class="margin"style="width: 150px; height: 100px;">
+                                <img src="~/Resources/Image/4.jpg" alt="4" class="margin"style="width: 150px; height: 100px;">
+                                <img src="~/Resources/Image/5.jpg" alt="5" class="margin"style="width: 150px; height: 100px;">
+                                <img src="~/Resources/Image/6.jpg" alt="6" class="margin"style="width: 150px; height: 100px;">
+                                <img src="~/Resources/Image/7.jpg" alt="7" class="margin"style="width: 150px; height: 100px;">
+                                <img src="~/Resources/Image/8.jpg" alt="8" class="margin"style="width: 150px; height: 100px;">
+                                <img src="~/Resources/Image/9.gif" alt="9" class="margin"style="width: 150px; height: 100px;">
+                            </div>
+                        </div>
+                    </li>
+                    <!-- END timeline item -->
+                    <!-- timeline item -->
+                    <li>
+                        <i class="fa fa-video-camera bg-maroon"></i>
+                        <div class="timeline-item">
+                            <span class="time"><i class="fa fa-clock-o"></i> 5 days ago</span>
+                            <h3 class="timeline-header"><a href="#">Mr. Doe</a> shared a video</h3>
+                            <div class="timeline-body">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="http://open.iqiyi.com/developer/player_js/coopPlayerIndex.html?vid=f6f1931cbdfd0146220526ef7b85c3d2&tvId=2879994209&accessToken=2.f22860a2479ad60d8da7697274de9346&appKey=3955c3425820435e86d0f4cdfe56f5e7&appId=1368&height=100%&width=100%" allowfullscreen="0"></iframe>
+                                </div> 
+                            </div>
+                            <div class="timeline-footer">
+                                <a href="#" class="btn btn-xs bg-maroon">See comments</a>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- END timeline item -->
+                    <li>
+                        <i class="fa fa-clock-o bg-gray"></i>
+                    </li>
+                </ul>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+
+   
+
+    </section>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        
+
+        $('#images_1').viewer({
+                url: 'data-original'
+            }); 
+    });
+</script>

@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "本地搜索数据接口";
+}
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=hsU2Uy0fKOVEGnmQsqqRFsGV"></script>
+<div class="container">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3">
+                @Html.Partial("_MapMenus")
+            </div><!-- /.col -->
+            <div class="col-md-9">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">本地搜索数据接口</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <div style="width:800px;height:500px;border:1px solid gray" id="allmap"></div>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer no-padding">
+                        <div id="r-result"></div>
+                    </div>
+                </div><!-- /. box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div>
+<script type="text/javascript">
+
+ 
+
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(113.829278, 22.737477), 11);
+
+    var options = {
+        onSearchComplete: function (results) {
+            // 判断状态是否正确
+            if (local.getStatus() == BMAP_STATUS_SUCCESS) {
+                var s = [];
+                for (var i = 0; i < results.getCurrentNumPois() ; i++) {
+                    s.push(results.getPoi(i).title + ", " + results.getPoi(i).address);
+                }
+                document.getElementById("r-result").innerHTML = s.join("<br/>");
+            }
+        }
+    };
+    var local = new BMap.LocalSearch(map, options);
+    local.search("公园");
+</script>

@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "获取行政区域";
+}
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=hsU2Uy0fKOVEGnmQsqqRFsGV"></script>
+<div class="container">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3">
+                @Html.Partial("_MapMenus")
+            </div><!-- /.col -->
+            <div class="col-md-9">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">获取行政区域</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <div style="width:800px;height:500px;border:1px solid gray" id="allmap"></div>
+
+                    </div><!-- /.box-body -->
+                    <div class="box-footer no-padding">
+
+                    </div>
+                </div><!-- /. box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div>
+
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(116.403765, 39.914850), 5);
+    map.enableScrollWheelZoom();
+
+    function getBoundary() {
+        var bdary = new BMap.Boundary();
+        bdary.get("深圳市宝安区", function (rs) {       //获取行政区域
+            map.clearOverlays();        //清除地图覆盖物
+            var count = rs.boundaries.length; //行政区域的点有多少个
+            if (count === 0) {
+                alert('未能获取当前输入行政区域');
+                return;
+            }
+            var pointArray = [];
+            for (var i = 0; i < count; i++) {
+                var ply = new BMap.Polygon(rs.boundaries[i], { strokeWeight: 2, strokeColor: "#ff0000" }); //建立多边形覆盖物
+                map.addOverlay(ply);  //添加覆盖物
+                pointArray = pointArray.concat(ply.getPath());
+            }
+            map.setViewport(pointArray);    //调整视野
+            addlabel();
+        });
+    }
+
+    setTimeout(function () {
+        getBoundary();
+    }, 2000);
+
+    function addlabel() {
+        var pointArray = [
+            new BMap.Point(121.716076, 23.703799),
+            new BMap.Point(112.121885, 14.570616),
+            new BMap.Point(123.776573, 25.695422)];
+        var optsArray = [{}, {}, {}];
+        var labelArray = [];
+        var contentArray = [
+            "台湾是中国的！",
+            "南海是中国的！",
+            "钓鱼岛是中国的！"];
+        for (var i = 0; i < pointArray.length; i++) {
+            optsArray[i].position = pointArray[i];
+            labelArray[i] = new BMap.Label(contentArray[i], optsArray[i]);
+            labelArray[i].setStyle({
+                color: "red",
+                fontSize: "12px",
+                height: "20px",
+                lineHeight: "20px",
+                fontFamily: "微软雅黑"
+            });
+            map.addOverlay(labelArray[i]);
+        }
+    }
+</script>

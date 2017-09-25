@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "多坐标点信息";
+}
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=hsU2Uy0fKOVEGnmQsqqRFsGV"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+<div class="container">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3">
+                @Html.Partial("_MapMenus")
+            </div><!-- /.col -->
+            <div class="col-md-9">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">多坐标点信息</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <div style="width:800px;height:500px;border:1px solid gray" id="allmap"></div>
+
+                    </div><!-- /.box-body -->
+                    <div class="box-footer no-padding">
+
+                    </div>
+                </div><!-- /. box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div>
+
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 4);
+    map.enableScrollWheelZoom();
+
+    var MAX = 10;
+    var markers = [];
+    var pt = null;
+    var i = 0;
+    for (; i < MAX; i++) {
+        pt = new BMap.Point(Math.random() * 40 + 85, Math.random() * 30 + 21);
+        markers.push(new BMap.Marker(pt));
+    }
+    //最简单的用法，生成一个marker数组，然后调用markerClusterer类即可。
+    var markerClusterer = new BMapLib.MarkerClusterer(map, { markers: markers });
+</script>

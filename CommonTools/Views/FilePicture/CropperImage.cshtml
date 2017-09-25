@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewBag.Title = "图片剪切";
+}
+
+<!--图片剪切--> 
+<link href="~/Content/Cropper/cropper.css" rel="stylesheet" />
+<link href="~/Content/cropper/main.css" rel="stylesheet" />
+
+<div class="container">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            文件图片上传 
+        </h1>
+    </section> 
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3"> 
+                @Html.Partial("_FilePicMenus")
+            </div><!-- /.col -->
+            <div class="col-md-9">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">图片剪切</h3> 
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding"> 
+                        <!--需要指定id=crop-avatar-->
+                        <div class="table-responsive" id="crop-avatar">
+                            <table class="table no-margin table-bordered">
+                                <tbody> 
+                                <tr>
+                                    <td class="col-xs-3 text-right"><b>账号头像:</b></td>
+                                    <td class="col-xs-9 text-left">
+                                        <div class="avatar-view"> 
+                                            <img src="~/Resources/Image/default-220x220.jpg" alt="Avatar" /> 
+                                        </div>
+                                        <small> 请点击图片上传</small>
+                                        <input id="UserPhoto" name="UserPhoto" type="text" />
+                                       
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!-- Cropping modal -->
+                            <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <form class="avatar-form" action="@Url.Action("UpdateImgBetyViews")" enctype="multipart/form-data" method="post">
+                                            <div class="modal-header">
+                                                <button class="close" data-dismiss="modal" type="button">&times;</button>
+                                                <h4 class="modal-title" id="avatar-modal-label">账号头像</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="avatar-body">
+
+                                                    <!-- Upload image and data -->
+                                                    <div class="avatar-upload">
+                                                        <input class="avatar-src" name="avatar_src" type="hidden"> 
+                                                        <input class="avatar-data" name="avatar_data" type="hidden">
+                                                        
+                                                        <input class="avatar-src1" name="avatar_src1" type="hidden" value="@ViewBag.KeyId"> 
+                                                        <label for="avatarInput">本地上传 </label>
+                                                        <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+                                                    </div>
+
+                                                    <!-- Crop and preview -->
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                            <div class="avatar-wrapper"></div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="avatar-preview preview-lg"></div>
+                                                            <div class="avatar-preview preview-md"></div>
+                                                            <div class="avatar-preview preview-sm"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row avatar-btns">
+                                                        <div class="col-md-9">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <button class="btn btn-primary btn-block avatar-save" type="submit">上传</button>
+                                                        </div>
+                                                    </div>
+ 
+                                                </div>
+                                            </div>  
+                                        </form>
+                                    </div>
+                                </div>
+                            </div><!-- /.modal -->
+                            <!-- Loading state -->
+                            @*<div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>*@
+                        </div><!-- /.mail-box-messages -->
+                    </div><!-- /.box-body -->
+                    <div class="box-footer no-padding">
+                         
+                    </div>
+                
+              
+                </div><!-- /. box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div>
+
+<!--图片剪切-->
+<script src="~/Scripts/Corpper/cropper.js"></script>
+<script src="~/Scripts/Corpper/corpupload.js"></script> 
